@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Biomimicry in Computing</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Reveal CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/white.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js/plugin/highlight/monokai.css"
+    />
+
+    <!-- PDF EXPORT -->
+    <script>
+      if (window.location.search.match(/print-pdf/gi)) {
+        let link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "https://cdn.jsdelivr.net/npm/reveal.js/dist/print/pdf.css";
+        document.head.appendChild(link);
+      }
+    </script>
+
+    <style>
+      :root {
+        --ink: #102a43;
+        --muted: #334e68;
+        --soft-card: rgba(255, 255, 255, 0.86);
+        --accent: #0d9488;
+      }
+
+      .reveal {
+        background: radial-gradient(
+          circle at 10% 20%,
+          #f0f9ff 0%,
+          #eef2ff 35%,
+          #f8fafc 100%
+        );
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: var(--ink);
+      }
+      p,
+      li {
+        font-size: 22px;
+        color: var(--muted);
+      }
+
+      h1 {
+        letter-spacing: 0.5px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+      }
+      .card {
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid #dbeafe;
+        background: var(--soft-card);
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+        font-weight: bold;
+      }
+
+      .agenda-link {
+        display: block;
+        color: #0f172a;
+        text-decoration: none;
+      }
+
+      .agenda-link:hover {
+        color: var(--accent);
+      }
+
+      .top-actions {
+        position: fixed;
+        top: 12px;
+        right: 12px;
+        z-index: 30;
+        display: flex;
+        gap: 10px;
+      }
+
+      .action-btn {
+        display: inline-block;
+        text-decoration: none;
+        background: #0f172a;
+        color: #ffffff;
+        border: 1px solid #1e293b;
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 8px 16px rgba(15, 23, 42, 0.2);
+      }
+
+      .action-btn:hover {
+        background: #0f766e;
+      }
+
+      .back-agenda {
+        margin-top: 14px;
+      }
+
+      .back-agenda a {
+        font-size: 16px;
+        color: #0f766e;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .back-agenda a:hover {
+        text-decoration: underline;
+      }
+
+      .flow {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .box {
+        padding: 15px 25px;
+        border-radius: 10px;
+        border: 2px solid #334155;
+        background: #ffffff;
+        box-shadow: 0 6px 16px rgba(30, 41, 59, 0.12);
+        font-weight: bold;
+      }
+
+      .arrow {
+        font-size: 30px;
+        color: #0f172a;
+      }
+
+      img {
+        max-height: 320px;
+        margin-top: 10px;
+        border-radius: 14px;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.2);
+      }
+
+      .title-kicker {
+        color: #0f766e;
+        font-weight: 700;
+      }
+
+      .presenters {
+        margin-top: 18px;
+        font-size: 18px;
+        line-height: 1.5;
+        color: #0f172a;
+      }
+
+      .presenters strong {
+        color: #0f766e;
+      }
+
+      .eye-image {
+        width: min(560px, 90%);
+        height: auto;
+      }
+
+      .reveal table {
+        margin: 12px auto;
+        border-collapse: collapse;
+        width: 85%;
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+      }
+
+      .reveal table th,
+      .reveal table td {
+        border: 1px solid #dbeafe;
+        padding: 12px 14px;
+        text-align: center;
+      }
+
+      .reveal table th {
+        background: #ecfeff;
+        color: #0f172a;
+      }
+
+      .pulse {
+        animation: pulseIn 1.8s ease-in-out infinite;
+      }
+
+      @keyframes pulseIn {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.03);
+        }
+      }
+
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        p,
+        li {
+          font-size: 20px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        p,
+        li {
+          font-size: 18px;
+        }
+
+        .arrow {
+          display: none;
+        }
+
+        .top-actions {
+          right: 8px;
+          top: 8px;
+        }
+
+        .action-btn {
+          padding: 7px 11px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="top-actions" id="topActions">
+      <a class="action-btn" href="#/agenda">Agenda</a>
+      <a
+        class="action-btn"
+        id="pdfExportBtn"
+        href="#"
+        target="_blank"
+        rel="noopener"
+        >Export PDF</a
+      >
+    </div>
+
+    <div class="reveal">
+      <div class="slides">
+        <!-- TITLE -->
+        <section
+          data-auto-animate
+          data-transition="zoom"
+          data-background-gradient="linear-gradient(120deg, #ecfeff, #dbeafe)"
+        >
+          <h1>Biomimicry in Computing</h1>
+          <h3>Eye-Inspired Image Recognition</h3>
+          <p class="fragment fade-up title-kicker pulse">
+            Biology → Intelligent Machines
+          </p>
+          <p class="presenters fragment fade-in-then-semi-out">
+            <strong>Team Members:</strong> S.Mithun, S.Mohamad Shahjan,
+            S.Sasivarman<br />
+            <strong>College:</strong> Meenakshi Sundararajan Engineering College
+          </p>
+        </section>
+
+        <!-- AGENDA (BENTO GRID) -->
+        <section data-transition="convex" id="agenda">
+          <h2>Agenda</h2>
+          <div class="grid">
+            <div class="card fragment">
+              <a class="agenda-link" href="#/problem">Problem</a>
+            </div>
+            <div class="card fragment">
+              <a class="agenda-link" href="#/biomimicry">Biomimicry</a>
+            </div>
+            <div class="card fragment">
+              <a class="agenda-link" href="#/human-eye">Human Eye</a>
+            </div>
+            <div class="card fragment">
+              <a class="agenda-link" href="#/architecture">Architecture</a>
+            </div>
+            <div class="card fragment">
+              <a class="agenda-link" href="#/results">Results</a>
+            </div>
+            <div class="card fragment">
+              <a class="agenda-link" href="#/future-scope">Future Scope</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROBLEM -->
+        <section data-transition="slide" id="problem">
+          <h2>Problem Statement</h2>
+          <ul>
+            <li class="fragment fade-right">High computational cost</li>
+            <li class="fragment fade-right">Noise sensitivity</li>
+            <li class="fragment fade-right">Low adaptability</li>
+          </ul>
+          <p class="back-agenda"><a href="#/agenda">← Back to Agenda</a></p>
+        </section>
+
+        <section data-auto-animate data-transition="fade">
+          <h2>Key Insight</h2>
+          <p>Computers struggle...</p>
+        </section>
+
+        <section data-auto-animate data-transition="fade">
+          <h2>Key Insight</h2>
+          <p><b>But the human eye solves it efficiently</b></p>
+        </section>
+
+        <!-- BIOMIMICRY -->
+        <section id="biomimicry">
+          <h2>Biomimicry</h2>
+          <p class="fragment">Nature-inspired engineering</p>
+          <ul>
+            <li class="fragment">Bird → Aircraft</li>
+            <li class="fragment">Lotus → Self-cleaning</li>
+          </ul>
+          <p class="back-agenda"><a href="#/agenda">← Back to Agenda</a></p>
+        </section>
+
+        <!-- HUMAN EYE -->
+        <section
+          id="human-eye"
+          data-transition="concave"
+          data-background-gradient="linear-gradient(135deg, #f0fdfa, #e0f2fe)"
+        >
+          <h2>Human Eye</h2>
+          <img
+            class="eye-image"
+            src="images/human-eye-anatomy.svg"
+            onerror="
+              this.onerror = null;
+              this.src =
+                'https://upload.wikimedia.org/wikipedia/commons/1/1e/Schematic_diagram_of_the_human_eye_en.svg';
+            "
+            alt="Human eye diagram"
+            title="Human eye diagram"
+          />
+          <p class="back-agenda"><a href="#/agenda">← Back to Agenda</a></p>
+        </section>
+
+        <section>
+          <h2>Eye Components</h2>
+          <ul>
+            <li class="fragment">Cornea (focus)</li>
+            <li class="fragment">Lens (adjust)</li>
+            <li class="fragment">Retina (detect)</li>
+            <li class="fragment">Optic Nerve (transmit)</li>
+          </ul>
+        </section>
+
+        <!-- COMPARISON -->
+        <section data-transition="slide">
+          <h2>Eye vs AI System</h2>
+          <table>
+            <tr>
+              <th>Human Eye</th>
+              <th>AI System</th>
+            </tr>
+            <tr>
+              <td>Lens</td>
+              <td>Camera</td>
+            </tr>
+            <tr>
+              <td>Retina</td>
+              <td>Sensor</td>
+            </tr>
+            <tr>
+              <td>Brain</td>
+              <td>Neural Network</td>
+            </tr>
+          </table>
+        </section>
+
+        <!-- ARCHITECTURE (AUTO ANIMATE MAGIC) -->
+        <section data-auto-animate data-transition="zoom" id="architecture">
+          <h2>System Architecture</h2>
+          <div class="flow">
+            <div class="box" data-id="cam">Camera</div>
+          </div>
+          <p class="back-agenda"><a href="#/agenda">← Back to Agenda</a></p>
+        </section>
+
+        <section data-auto-animate>
+          <div class="flow">
+            <div class="box" data-id="cam">Camera</div>
+            <div class="arrow">→</div>
+            <div class="box" data-id="pre">Pre-processing</div>
+          </div>
+        </section>
+
+        <section data-auto-animate>
+          <div class="flow">
+            <div class="box" data-id="cam">Camera</div>
+            <div class="arrow">→</div>
+            <div class="box" data-id="pre">Pre-processing</div>
+            <div class="arrow">→</div>
+            <div class="box" data-id="feat">Feature Extraction</div>
+          </div>
+        </section>
+
+        <section data-auto-animate>
+          <div class="flow">
+            <div class="box" data-id="cam">Camera</div>
+            <div class="arrow">→</div>
+            <div class="box" data-id="pre">Pre-processing</div>
+            <div class="arrow">→</div>
+            <div class="box" data-id="feat">Feature Extraction</div>
+            <div class="arrow">→</div>
+            <div class="box" data-id="cnn">CNN Model</div>
+          </div>
+        </section>
+
+        <section data-auto-animate>
+          <div class="flow">
+            <div class="box" data-id="cam">Camera</div>
+            <div class="arrow">→</div>
+            <div class="box" data-id="pre">Pre-processing</div>
+            <div class="arrow">→</div>
+            <div class="box" data-id="feat">Feature Extraction</div>
+            <div class="arrow">→</div>
+            <div class="box" data-id="cnn">CNN Model</div>
+            <div class="arrow">→</div>
+            <div class="box" data-id="out">Output</div>
+          </div>
+        </section>
+
+        <!-- FEATURES -->
+        <section data-transition="slide-in fade-out">
+          <h2>Feature Extraction</h2>
+          <ul>
+            <li class="fragment fade-up">Edges</li>
+            <li class="fragment fade-up">Shapes</li>
+            <li class="fragment fade-up">Textures</li>
+          </ul>
+        </section>
+
+        <!-- CNN -->
+        <section data-transition="convex">
+          <h2>CNN Model</h2>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/6/63/Typical_cnn.png"
+            alt="Typical CNN architecture diagram"
+            title="Typical CNN architecture diagram"
+          />
+          <p class="fragment">Inspired by brain neurons</p>
+        </section>
+
+        <!-- CODE -->
+        <section data-transition="concave">
+          <h2>Core Logic</h2>
+          <pre><code class="hljs python">
+def recognize(image):
+    features = extract(image)
+    return model.predict(features)
+</code></pre>
+        </section>
+
+        <!-- RESULTS -->
+        <section
+          id="results"
+          data-transition="zoom"
+          data-background-gradient="linear-gradient(135deg, #ecfccb, #dcfce7)"
+        >
+          <h2>Results</h2>
+          <p class="fragment fade-in">Input → Process → Output</p>
+          <p class="fragment highlight-green"><b>"Car Detected (92%)"</b></p>
+          <p class="back-agenda"><a href="#/agenda">← Back to Agenda</a></p>
+        </section>
+
+        <!-- APPLICATION -->
+        <section data-transition="convex">
+          <h2>Applications</h2>
+          <ul>
+            <li class="fragment grow">Self-driving cars</li>
+            <li class="fragment grow">Healthcare imaging</li>
+            <li class="fragment grow">Robotics</li>
+          </ul>
+        </section>
+
+        <!-- SDG -->
+        <section data-transition="fade">
+          <h2>SDGs</h2>
+          <ul>
+            <li class="fragment">Good Health</li>
+            <li class="fragment">Innovation</li>
+            <li class="fragment">Smart Cities</li>
+          </ul>
+        </section>
+
+        <!-- CONCLUSION -->
+        <section data-auto-animate>
+          <h2>Conclusion</h2>
+          <p>Biology + Computing</p>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Conclusion</h2>
+          <p><b>Efficient AI Systems</b></p>
+        </section>
+
+        <!-- FUTURE -->
+        <section data-transition="zoom" id="future-scope">
+          <h2>Future Scope</h2>
+          <ul>
+            <li class="fragment">Neuromorphic chips</li>
+            <li class="fragment">Real-time vision AI</li>
+            <li class="fragment">Autonomous robotics</li>
+          </ul>
+          <p class="back-agenda"><a href="#/agenda">← Back to Agenda</a></p>
+        </section>
+
+        <!-- END -->
+        <section
+          data-transition="zoom"
+          data-background-gradient="linear-gradient(120deg, #e2e8f0, #dbeafe)"
+        >
+          <h1 class="r-fit-text">THANK YOU</h1>
+          <p>S.Mithun | S.Mohamad Shahjan | S.Sasivarman</p>
+          <p>Meenakshi Sundararajan Engineering College</p>
+          <p>Questions?</p>
+        </section>
+      </div>
+    </div>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/zoom/zoom.js"></script>
+
+    <script>
+      const baseUrl = window.location.href.split("?")[0].split("#")[0];
+      const pdfExportBtn = document.getElementById("pdfExportBtn");
+      if (pdfExportBtn) {
+        pdfExportBtn.href = `${baseUrl}?print-pdf`;
+      }
+
+      if (window.location.search.match(/print-pdf/gi)) {
+        const topActions = document.getElementById("topActions");
+        if (topActions) {
+          topActions.style.display = "none";
+        }
+      }
+
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        slideNumber: true,
+        transition: "convex",
+        transitionSpeed: "default",
+        backgroundTransition: "slide",
+        controlsTutorial: true,
+        overview: true,
+        mouseWheel: true,
+        autoAnimate: true,
+        autoAnimateDuration: 1,
+        autoAnimateEasing: "ease-out",
+        plugins: [RevealNotes, RevealHighlight, RevealZoom],
+      });
+    </script>
+  </body>
+</html>
