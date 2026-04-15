@@ -6,27 +6,18 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Reveal CDN -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/white.css"
-    />
+    <!-- Reveal Local -->
+    <link rel="stylesheet" href="libs/reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="libs/reveal.js/dist/theme/white.css" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/reveal.js/plugin/highlight/monokai.css"
-    />
+    <link rel="stylesheet" href="libs/reveal.js/plugin/highlight/monokai.css" />
 
     <!-- PDF EXPORT -->
     <script>
       if (window.location.search.match(/print-pdf/gi)) {
         let link = document.createElement("link");
         link.rel = "stylesheet";
-        link.href = "https://cdn.jsdelivr.net/npm/reveal.js/dist/print/pdf.css";
+        link.href = "libs/reveal.js/dist/print/pdf.css";
         document.head.appendChild(link);
       }
     </script>
@@ -352,11 +343,6 @@
           <img
             class="eye-image"
             src="images/human-eye-anatomy.svg"
-            onerror="
-              this.onerror = null;
-              this.src =
-                'https://upload.wikimedia.org/wikipedia/commons/1/1e/Schematic_diagram_of_the_human_eye_en.svg';
-            "
             alt="Human eye diagram"
             title="Human eye diagram"
           />
@@ -463,7 +449,7 @@
         <section data-transition="convex">
           <h2>CNN Model</h2>
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/6/63/Typical_cnn.png"
+            src="images/cnn-architecture.png"
             alt="Typical CNN architecture diagram"
             title="Typical CNN architecture diagram"
           />
@@ -548,10 +534,10 @@ def recognize(image):
     </div>
 
     <!-- JS -->
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/notes/notes.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/highlight/highlight.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/zoom/zoom.js"></script>
+    <script src="libs/reveal.js/dist/reveal.js"></script>
+    <script src="libs/reveal.js/plugin/notes/notes.js"></script>
+    <script src="libs/reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="libs/reveal.js/plugin/zoom/zoom.js"></script>
 
     <script>
       const baseUrl = window.location.href.split("?")[0].split("#")[0];
